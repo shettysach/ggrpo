@@ -110,8 +110,8 @@
           unset PYTHONPATH
           export UV_PYTHON_DOWNLOADS=never
 
-          export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib.outPath}/lib:$LD_LIBRARY_PATH"
-          export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.uv pkgs.zlib]}:$LD_LIBRARY_PATH"
+          export LD_LIBRARY_PATH='${pkgs.stdenv.cc.cc.lib}/lib/:/run/opengl-driver/lib/'
+          export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.zlib]}:$LD_LIBRARY_PATH"
           export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib.outPath}/lib:$LD_LIBRARY_PATH"
         '';
       };

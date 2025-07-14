@@ -62,7 +62,10 @@ class Retriever:
         self.use_gpu = args.faiss_gpu
         self.node_text_keys = args.node_text_keys
         self.model_name = args.embedder_name
-        self.model = sentence_transformers.SentenceTransformer(args.embedder_name)
+        self.model = sentence_transformers.SentenceTransformer(
+            args.embedder_name,
+            device="cpu",  # WARN:
+        )
         self.graph = graph
         self.cache = args.embed_cache
         self.cache_dir = args.embed_cache_dir
@@ -183,15 +186,3 @@ class Retriever:
         original_type = np.array(self.doc_type)[I].tolist()[0][0]
 
         return original_indice, self.graph[f"{original_type}_nodes"][original_indice]
-
-
-# if __name__ == "__main__":
-#     model_name = "sentence-transformers/all-mpnet-base-v2"
-#     graph_dir = "../data/biomedical/graph.json"
-#     node_text_keys = NODE_TEXT_KEYS["biomedical"]
-#
-#     query = "quantum physics and machine learning"
-#
-#     graph = json.load(open(graph_dir))
-#     node_retriever = Retriever(graph, model_name, node_text_keys, use_gpu=False)
-#     idd, node = node_retriever.search_single(query, 1)

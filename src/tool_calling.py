@@ -3,11 +3,12 @@ from retriever import Retriever, NODE_TEXT_KEYS
 from graph_funcs import graph_funcs
 import json
 import re
-
+import csv
 
 # ----------------------------
 # Model setup
 # ----------------------------
+
 model_name = "Qwen/Qwen3-1.7B"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(
@@ -74,7 +75,7 @@ There are these types of edges: Anatomy-downregulates-Gene, Anatomy-expresses-Ge
 
 
 examples = [
-    """Question: What compounds can be used to treat Crohn's disease? Please answer the compound names rather than IDs.
+    """Question: What compounds can be used to treat Crohn's disease? Give the final answer in compound names rather than IDs.
 <think>The question is related to a disease node (Crohn's disease). We need to find the node in the graph.</think>
 <tool_call>RetrieveNode[Crohn's disease]</tool_call>
 <tool_response>DOID:8778</tool_response>
@@ -185,7 +186,11 @@ def run_query(query, max_steps=10):
                         continue
 
                     tool, args = tool_match.groups()
-                    args = [eval(x) for x in args.split(",")] if args.strip() else []
+                    args = (
+                        [x.strip().strip('"').strip("'") for x in args.split(",")]
+                        if args.strip()
+                        else []
+                    )
 
                     try:
                         result = TOOLS[tool](*args)
@@ -218,8 +223,35 @@ def run_query(query, max_steps=10):
 
 
 data_path = "/home/sword/Desktop/work/ggrpo/data/biomedical/graph.json"
-data = json.load(open(graph_path))
 
 
 if __name__ == "__main__":
-    run_query("what are the side effects of compound Pyridoxine?")
+    run_query("Are there any side effects of using compound Malathion?", 25)
+
+    with open(data_path, "r") as f:
+        dataset = [json.loads(line.strip()) for line in f]
+
+    results = []
+    for item in dataset:
+        qid = item["qid"]
+        question = item["question"]
+        predicted_answer = run_query(question, max_steps=25)
+        results.append(
+            {
+                "qid": qid,
+                "question": question,
+                "predicted_answer": predicted_answer,
+                "gt_answer": item["answer"],
+            }
+        )
+
+    # Save to CSV
+    output_csv_path = "results.csv"
+    with open(output_csv_path, "w", newline="") as csvfile:
+        writer = csv.DictWriter(
+            csvfile, fieldnames=["qid", "question", "predicted_answer", "gt_answer"]
+        )
+        writer.writeheader()
+        writer.writerows(results)
+
+    print(f"Saved results to {output_csv_path}")
