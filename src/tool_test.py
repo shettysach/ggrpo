@@ -46,7 +46,7 @@ TOOLS = {
 
 
 if __name__ == "__main__":
-    print(TOOLS["RetrieveNode"]("Caffeine"))
-    print(TOOLS["NodeFeature"]("DB00200", "inchikey"))
+    print(TOOLS["RetrieveNode"]("disease focal segmental glomerulosclerosis"))
+    print(TOOLS["NodeFeature"]("DB00199", "inchikey"))
     print(TOOLS["NodeDegree"]("DB00201", "Compound-causes-Side Effect"))
     print(TOOLS["NeighbourCheck"]("DOID:8778", "Compound-treats-Disease"))

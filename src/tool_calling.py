@@ -4,15 +4,24 @@ from graph_funcs import graph_funcs
 import json
 import re
 import csv
+import os
+import torch
+
+
+graph_path = "/home/sword/Desktop/work/ggrpo/data/biomedical/graph.json"
+graph = json.load(open(graph_path))
+
+data_path = "/home/sword/Desktop/work/ggrpo/data/biomedical/data.json"
+dataset = json.load(open(data_path))
 
 # ----------------------------
 # Model setup
 # ----------------------------
 
-model_name = "Qwen/Qwen3-1.7B"
+model_name = "qwen/Qwen3-1.7B"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(
-    model_name, torch_dtype="auto", device_map="cuda"
+    model_name, torch_dtype=torch.float16, device_map="cuda"
 )
 
 
@@ -21,13 +30,11 @@ model = AutoModelForCausalLM.from_pretrained(
 # ----------------------------
 
 # Load graph and initialize tools
-graph_path = "/home/sword/Desktop/work/ggrpo/data/biomedical/graph.json"
-graph = json.load(open(graph_path))
 
 
 class Args:
     dataset = "biomedical"
-    faiss_gpu = False
+    faiss_gpu = False  # WARN:
     embedder_name = "sentence-transformers/all-mpnet-base-v2"
     embed_cache = True
     embed_cache_dir = "/tmp"  # Adjust to a writable cache dir
@@ -109,7 +116,7 @@ Question: What is the inchikey of Caffeine?
 
 example_block = "\n\n".join(examples)
 
-system_prompt = """You are an assistant who uses tools to compute answers step-by-step.
+system_prompt = """You are an assistant who uses tools to compute answers step-by-step. 
 
 Graph description:
 {graph_description}
@@ -129,11 +136,19 @@ Receive tool outputs like this:
 Continue until you reach:
 <final_answer>answer</final_answer>
 
+You can call multiple tool calls at a time, separated by ','.
+
+Example:
+<tool_call>ToolName[a], ToolName[b]</tool_call>
+
+Examples:
 {example_block}
 
+Assume you have no prior biomedical data, excluding the graph description and tools.
 Now solve this.
-
 """
+
+# Think at each step what data you have. Do not hallucinate data or tool calls. If you need data use tool calls.
 
 
 formatted_prompt = system_prompt.format(
@@ -144,13 +159,19 @@ formatted_prompt = system_prompt.format(
 pattern = re.compile(r"<(think|tool_call|tool_response|final_answer)>(.*?)</\1>", re.S)
 
 
-def run_query(query, max_steps=10):
+def run_query(query: str, max_steps: int = 20, print_out: bool = False):
     history = [
         {"role": "system", "content": formatted_prompt},
         {"role": "user", "content": f"Question: {query}"},
     ]
 
+    if not print_out:
+        print("steps - ", end="", flush=True)
+
     for step in range(max_steps):
+        if not print_out:
+            print(f"{step} ", end="", flush=True)
+
         text = tokenizer.apply_chat_template(
             history,
             tokenize=False,
@@ -168,21 +189,26 @@ def run_query(query, max_steps=10):
             body = body.strip()
 
             if tag == "think":
-                print(f"<think>{body}</think>")
+                if print_out:
+                    print(f"<think>{body}</think>")
+
                 history.append(
                     {"role": "assistant", "content": f"<think>{body}</think>"}
                 )
 
             elif tag == "tool_call":
-                print(f"<tool_call>{body}</tool_call>")
+                if print_out:
+                    print(f"<tool_call>{body}</tool_call>")
+
                 calls = re.findall(r"(\w+\[.*?\])", body)
-                full_tool_call = []
-                full_tool_response = []
+                full_tool_call = f"<tool_call>{body}</tool_call>"
+                tool_outputs = []
 
                 for call in calls:
                     tool_match = re.match(r"(\w+)\[(.*?)\]", call)
                     if not tool_match:
-                        print(f"Invalid tool call: {call}")
+                        if print_out:
+                            print(f"Invalid tool call: {call}")
                         continue
 
                     tool, args = tool_match.groups()
@@ -197,61 +223,74 @@ def run_query(query, max_steps=10):
                     except Exception as e:
                         result = f"Error: {str(e)}"
 
-                    print(f"<tool_response>{result}</tool_response>")
-                    full_tool_call.append(f"<tool_call>{call}</tool_call>")
-                    full_tool_response.append(
-                        f"<tool_response>{result}</tool_response>"
-                    )
+                    tool_outputs.append(str(result))
 
-                history.extend(
-                    {"role": "assistant", "content": call} for call in full_tool_call
-                )
-                history.extend(
-                    {"role": "tool", "content": resp} for resp in full_tool_response
+                joined_response = ", ".join(tool_outputs)
+                if print_out:
+                    print(f"<tool_response>{joined_response}</tool_response>")
+
+                history.append({"role": "assistant", "content": full_tool_call})
+                history.append(
+                    {
+                        "role": "tool",
+                        "content": f"<tool_response>{joined_response}</tool_response>",
+                    }
                 )
                 break  # Return to LLM for next step
 
             elif tag == "final_answer":
-                print(f"FINAL ANSWER: {body}")
+                if print_out:
+                    print(f"<final_answer>{body}</final_answer>")
                 return body
 
             else:
-                print(f"<{tag}>{body}</{tag}>")
+                if print_out:
+                    print(f"<{tag}>{body}</{tag}>")
 
-    print("Reached step limit without final answer.")
+    if print_out:
+        print("Reached step limit without final answer.")
+
     return None
 
 
-data_path = "/home/sword/Desktop/work/ggrpo/data/biomedical/graph.json"
+def save_to_csv(print_out: bool):
+    output_csv_path = "./results.csv"
+    file_exists = os.path.isfile(output_csv_path)
 
-
-if __name__ == "__main__":
-    run_query("Are there any side effects of using compound Malathion?", 25)
-
-    with open(data_path, "r") as f:
-        dataset = [json.loads(line.strip()) for line in f]
-
-    results = []
-    for item in dataset:
-        qid = item["qid"]
-        question = item["question"]
-        predicted_answer = run_query(question, max_steps=25)
-        results.append(
-            {
-                "qid": qid,
-                "question": question,
-                "predicted_answer": predicted_answer,
-                "gt_answer": item["answer"],
-            }
-        )
-
-    # Save to CSV
-    output_csv_path = "results.csv"
-    with open(output_csv_path, "w", newline="") as csvfile:
+    with open(output_csv_path, "a", newline="") as csvfile:
         writer = csv.DictWriter(
             csvfile, fieldnames=["qid", "question", "predicted_answer", "gt_answer"]
         )
-        writer.writeheader()
-        writer.writerows(results)
 
-    print(f"Saved results to {output_csv_path}")
+        if not file_exists:
+            writer.writeheader()
+
+        for item in dataset[11:]:
+            qid = item["qid"]
+            question = item["question"]
+            real = item["answer"]
+            pred = run_query(question, 25, print_out)
+
+            print("")
+            print(f"pred: {pred}")
+            print(f"real: {real}")
+            print("")
+
+            row = {
+                "qid": qid,
+                "question": question,
+                "predicted_answer": pred,
+                "gt_answer": real,
+            }
+            writer.writerow(row)
+
+    print(f"Saved to {output_csv_path}")
+
+
+if __name__ == "__main__":
+    # save_to_csv(True)
+    run_query(
+        "Can you tell me the count of compounds that are similar to Pipazethate?",
+        max_steps=25,
+        print_out=True,
+    )

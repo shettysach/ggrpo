@@ -1,0 +1,12 @@
+qid,question,predicted_answer,gt_answer
+0,Are there any side effects of using compound Malathion?,"Conjunctivitis, Sensitisation, Chemical burn, Burns second degree, Chemical injury","Conjunctivitis, Sensitisation, Chemical burn, Burns second degree, Chemical injury"
+1,Are there any side effects of using compound Zinc?,"The side effects of using compound Zinc include Pancreatitis, Gastric irritation, and Epigastric discomfort.","Pancreatitis, Gastric irritation, Epigastric discomfort"
+2,Are there any side effects of using compound Benzyl Benzoate?,"The side effects of using compound Benzyl Benzoate include: Stinging, Pain, Skin sensitisation, Burning sensation, and Skin irritation.", "Stinging, Pain, Skin sensitisation, Burning sensation, Skin irritation"
+3,Can you list the side effects of Mepyramine?,Skin sensitisation,Skin sensitisation
+4,what are the side effects of compound Acetic acid?,"Stinging, Pain, Acidosis, Hypernatraemia, Haematuria","Stinging, Pain, Acidosis, Hypernatraemia, Haematuria"
+5,what are the side effects of compound Pyridoxine?,"Somnolence, Nausea, Headache, Paraesthesia, Neuropathy peripheral","Somnolence, Nausea, Headache, Paraesthesia, Neuropathy peripheral"
+6,Can you list the side effects of Hexachlorophene?,"Photosensitivity, Photosensitivity reaction, Erythema, Dermatitis, Redness","Photosensitivity, Photosensitivity reaction, Erythema, Dermatitis, Redness"
+7,Could you tell me the side effects of the compound Triclosan?,Hypersensitivity,Hypersensitivity
+8,Can you list the side effects of Crotamiton?,"Pruritus, Rash, Dermatitis","Pruritus, Rash, Dermatitis"
+10,What are the symptoms of the disease IgA glomerulonephritis?,"Purpura, Thrombocytopenic, Idiopathic, Purpura, Schoenlein-Henoch, Proteinuria, Hypergammaglobulinemia","Purpura, Thrombocytopenic, Idiopathic, Purpura, Schoenlein-Henoch, Proteinuria, Hypergammaglobulinemia"
+11,What are the symptoms of the disease focal segmental glomerulosclerosis?,ERROR,"Albuminuria, Kearns-Sayre Syndrome, Proteinuria"
