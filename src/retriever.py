@@ -22,7 +22,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # from IPython import embed
-
 NODE_TEXT_KEYS = {
     "maple": {"paper": ["title"], "author": ["name"], "venue": ["name"]},
     "amazon": {"item": ["title"], "brand": ["name"]},
@@ -64,14 +63,12 @@ class Retriever:
         self.model_name = args.embedder_name
         self.model = sentence_transformers.SentenceTransformer(
             args.embedder_name,
-            device="cpu",  # WARN:
-            # device="cuda",
+            # device="cpu",  # WARN: Using CPU explicitly
+            device="cuda",  # WARN: Using CPU explicitly
         )
         self.graph = graph
         self.cache = args.embed_cache
-        self.cache_dir = args.embed_cache_dir
-
-        self.reset()
+        self.cache_dir = "/workspace/cache"  # Ensure this directory exists
 
     def reset(self):
         docs, ids, meta_type = self.process_graph()
@@ -119,8 +116,11 @@ class Retriever:
         return docs, ids, meta_type
 
     def multi_gpu_infer(self, docs):
-        pool = self.model.start_multi_process_pool()
+        # Ensure multiprocessing is handled properly
+        # pool = self.model.start_multi_process_pool(target_devices=["cpu"])  # Force CPU
+        pool = self.model.start_multi_process_pool(target_devices=["cuda"])  # Force CPU
         embeds = self.model.encode_multi_process(docs, pool)
+        sentence_transformers.SentenceTransformer.stop_multi_process_pool(pool)
         return embeds
 
     def _initialize_faiss_index(self, dim: int):
@@ -176,7 +176,6 @@ class Retriever:
         self.query_lookup = []
 
     def search_single(self, query, topk: int = 10):
-        # logger.info("Searching")
         if self.index is None:
             raise ValueError("Index is not initialized")
 

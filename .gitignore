@@ -5,3 +5,4 @@ data/
 .venv
 .env
 tmp.py
+upload.sh

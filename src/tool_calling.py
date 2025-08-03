@@ -1,35 +1,35 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from vllm import LLM, SamplingParams
 from retriever import Retriever, NODE_TEXT_KEYS
 from graph_funcs import graph_funcs
 import json
 import re
 import csv
 import os
-import torch
 
+# ----------------------------
+# Load graph and dataset
+# ----------------------------
 
-graph_path = "/home/sword/Desktop/work/ggrpo/data/biomedical/graph.json"
+graph_path = "/workspace/graph.json"
 graph = json.load(open(graph_path))
 
-data_path = "/home/sword/Desktop/work/ggrpo/data/biomedical/data.json"
+data_path = "/workspace/data.json"
 dataset = json.load(open(data_path))
 
 # ----------------------------
-# Model setup
+# Model setup with vLLM
 # ----------------------------
 
-model_name = "qwen/Qwen3-1.7B"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(
-    model_name, torch_dtype=torch.float16, device_map="cuda"
+llm = LLM(
+    "qwen/Qwen3-1.7B",
+    gpu_memory_utilization=0.2,
+    max_num_seqs=16,
+    max_model_len=4096,
 )
-
 
 # ----------------------------
 # Tool definitions
 # ----------------------------
-
-# Load graph and initialize tools
 
 
 class Args:
@@ -136,20 +136,21 @@ Receive tool outputs like this:
 Continue until you reach:
 <final_answer>answer</final_answer>
 
-You can call multiple tool calls at a time, separated by ','.
-
-Example:
-<tool_call>ToolName[a], ToolName[b]</tool_call>
-
 Examples:
 {example_block}
+
+You need not call tool calls one by one. You can call multiple tool calls at a time, separated by ",".
+
+Example:
+<tool_call>ToolName[a], ToolName[b], ToolName[c]</tool_call>
+<tool_response>output a, output b, output c</tool_response>
+
 
 Assume you have no prior biomedical data, excluding the graph description and tools.
 Now solve this.
 """
 
 # Think at each step what data you have. Do not hallucinate data or tool calls. If you need data use tool calls.
-
 
 formatted_prompt = system_prompt.format(
     graph_description=graph_description,
@@ -160,6 +161,7 @@ pattern = re.compile(r"<(think|tool_call|tool_response|final_answer)>(.*?)</\1>"
 
 
 def run_query(query: str, max_steps: int = 20, print_out: bool = False):
+    # Initialize the conversation history
     history = [
         {"role": "system", "content": formatted_prompt},
         {"role": "user", "content": f"Question: {query}"},
@@ -172,26 +174,29 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
         if not print_out:
             print(f"{step} ", end="", flush=True)
 
-        text = tokenizer.apply_chat_template(
-            history,
-            tokenize=False,
-            add_generation_prompt=True,
-            enable_thinking=True,
+        # ---------------------------------------------------------------
+        # Use vLLM's chat interface with thinking enabled
+        # ---------------------------------------------------------------
+        sampling_params = SamplingParams(max_tokens=256, temperature=0.6)
+        chat_out = llm.chat(
+            [history],  # Pass the history as a list of messages
+            sampling_params,
+            chat_template_kwargs={"enable_thinking": True},  # Enable thinking mode
         )
-        inputs = tokenizer([text], return_tensors="pt").to(model.device)
-        output_ids = model.generate(**inputs, max_new_tokens=256)[0][
-            inputs.input_ids.shape[1] :
-        ]
-        response = tokenizer.decode(output_ids, skip_special_tokens=True).strip()
 
+        # Extract the generated text from the first output
+        response = chat_out[0].outputs[0].text.strip()  # Correct way to access text
+        # ---------------------------------------------------------------
+
+        # Extract blocks (e.g., <think>, <tool_call>, <tool_response>, <final_answer>)
         blocks = pattern.findall(response)
+
         for tag, body in blocks:
             body = body.strip()
 
             if tag == "think":
                 if print_out:
                     print(f"<think>{body}</think>")
-
                 history.append(
                     {"role": "assistant", "content": f"<think>{body}</think>"}
                 )
@@ -200,6 +205,7 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
                 if print_out:
                     print(f"<tool_call>{body}</tool_call>")
 
+                # Parse the tool call and execute it
                 calls = re.findall(r"(\w+\[.*?\])", body)
                 full_tool_call = f"<tool_call>{body}</tool_call>"
                 tool_outputs = []
@@ -229,6 +235,7 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
                 if print_out:
                     print(f"<tool_response>{joined_response}</tool_response>")
 
+                # Add the tool call and response to the history
                 history.append({"role": "assistant", "content": full_tool_call})
                 history.append(
                     {
@@ -236,24 +243,19 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
                         "content": f"<tool_response>{joined_response}</tool_response>",
                     }
                 )
-                break  # Return to LLM for next step
+                break  # Return to the model for the next step
 
             elif tag == "final_answer":
                 if print_out:
                     print(f"<final_answer>{body}</final_answer>")
                 return body
 
-            else:
-                if print_out:
-                    print(f"<{tag}>{body}</{tag}>")
-
     if print_out:
         print("Reached step limit without final answer.")
-
     return None
 
 
-def save_to_csv(print_out: bool):
+def save_to_csv(print_out: bool = False):
     output_csv_path = "./results.csv"
     file_exists = os.path.isfile(output_csv_path)
 
@@ -265,11 +267,11 @@ def save_to_csv(print_out: bool):
         if not file_exists:
             writer.writeheader()
 
-        for item in dataset[11:]:
+        for item in dataset:
             qid = item["qid"]
             question = item["question"]
             real = item["answer"]
-            pred = run_query(question, 25, print_out)
+            pred = run_query(question, 50, print_out)
 
             print("")
             print(f"pred: {pred}")
@@ -288,9 +290,10 @@ def save_to_csv(print_out: bool):
 
 
 if __name__ == "__main__":
-    # save_to_csv(True)
-    run_query(
-        "Can you tell me the count of compounds that are similar to Pipazethate?",
-        max_steps=25,
-        print_out=True,
-    )
+    args = Args()
+    retriever = Retriever(args, graph)
+
+    retriever.reset()
+    save_to_csv(True)
+
+    llm.stop()

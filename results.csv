@@ -10,3 +10,4 @@ qid,question,predicted_answer,gt_answer
 8,Can you list the side effects of Crotamiton?,"Pruritus, Rash, Dermatitis","Pruritus, Rash, Dermatitis"
 10,What are the symptoms of the disease IgA glomerulonephritis?,"Purpura, Thrombocytopenic, Idiopathic, Purpura, Schoenlein-Henoch, Proteinuria, Hypergammaglobulinemia","Purpura, Thrombocytopenic, Idiopathic, Purpura, Schoenlein-Henoch, Proteinuria, Hypergammaglobulinemia"
 11,What are the symptoms of the disease focal segmental glomerulosclerosis?,ERROR,"Albuminuria, Kearns-Sayre Syndrome, Proteinuria"
+12,Tell me about the symptoms of azoospermia.,,Overweight

@@ -141,7 +141,6 @@
           packages = [
             virtualenv
             pkgs.uv
-            pkgs.neo4j
             pkgs.gcc-unwrapped
           ];
 
@@ -157,9 +156,6 @@
 
             # Get repository root using git. This is expanded at runtime by the editable `.pth` machinery.
             export REPO_ROOT=$(git rev-parse --show-toplevel)
-
-            export NEO4J_HOME='./neo4j_home'
-            export LD_LIBRARY_PATH='${pkgs.stdenv.cc.cc.lib}/lib/:/run/opengl-driver/lib/'
           '';
         };
     };
