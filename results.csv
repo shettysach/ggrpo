@@ -1,13 +1,201 @@
 qid,question,predicted_answer,gt_answer
-0,Are there any side effects of using compound Malathion?,"Conjunctivitis, Sensitisation, Chemical burn, Burns second degree, Chemical injury","Conjunctivitis, Sensitisation, Chemical burn, Burns second degree, Chemical injury"
-1,Are there any side effects of using compound Zinc?,"The side effects of using compound Zinc include Pancreatitis, Gastric irritation, and Epigastric discomfort.","Pancreatitis, Gastric irritation, Epigastric discomfort"
-2,Are there any side effects of using compound Benzyl Benzoate?,"The side effects of using compound Benzyl Benzoate include: Stinging, Pain, Skin sensitisation, Burning sensation, and Skin irritation.", "Stinging, Pain, Skin sensitisation, Burning sensation, Skin irritation"
+0,Are there any side effects of using compound Malathion?,"Conjunctivitis, Sensitisation, Chemical burn, Chemical injury, Burns second degree","Conjunctivitis, Sensitisation, Chemical burn, Burns second degree, Chemical injury"
+1,Are there any side effects of using compound Zinc?,"Yes, Zinc can cause side effects such as Pancreatitis, Gastric irritation, and Epigastric discomfort.","Pancreatitis, Gastric irritation, Epigastric discomfort"
+2,Are there any side effects of using compound Benzyl Benzoate?,"The side effects of using Benzyl Benzoate include Stinging, Pain, Skin sensitisation, Burning sensation, and Skin irritation.","Stinging, Pain, Skin sensitisation, Burning sensation, Skin irritation"
 3,Can you list the side effects of Mepyramine?,Skin sensitisation,Skin sensitisation
-4,what are the side effects of compound Acetic acid?,"Stinging, Pain, Acidosis, Hypernatraemia, Haematuria","Stinging, Pain, Acidosis, Hypernatraemia, Haematuria"
+4,what are the side effects of compound Acetic acid?,NONE,"Stinging, Pain, Acidosis, Hypernatraemia, Haematuria"
 5,what are the side effects of compound Pyridoxine?,"Somnolence, Nausea, Headache, Paraesthesia, Neuropathy peripheral","Somnolence, Nausea, Headache, Paraesthesia, Neuropathy peripheral"
 6,Can you list the side effects of Hexachlorophene?,"Photosensitivity, Photosensitivity reaction, Erythema, Dermatitis, Redness","Photosensitivity, Photosensitivity reaction, Erythema, Dermatitis, Redness"
 7,Could you tell me the side effects of the compound Triclosan?,Hypersensitivity,Hypersensitivity
-8,Can you list the side effects of Crotamiton?,"Pruritus, Rash, Dermatitis","Pruritus, Rash, Dermatitis"
+8,Could you tell me the side effects of the compound Vitamin A?,No side effects are listed for Vitamin A in the provided graph data.,"Anaphylactic shock, Hypersensitivity"
+9,Can you list the side effects of Crotamiton?,NONE,"Pruritus, Rash, Dermatitis"
 10,What are the symptoms of the disease IgA glomerulonephritis?,"Purpura, Thrombocytopenic, Idiopathic, Purpura, Schoenlein-Henoch, Proteinuria, Hypergammaglobulinemia","Purpura, Thrombocytopenic, Idiopathic, Purpura, Schoenlein-Henoch, Proteinuria, Hypergammaglobulinemia"
-11,What are the symptoms of the disease focal segmental glomerulosclerosis?,ERROR,"Albuminuria, Kearns-Sayre Syndrome, Proteinuria"
-12,Tell me about the symptoms of azoospermia.,,Overweight
+11,What are the symptoms of the disease focal segmental glomerulosclerosis?,No symptoms are listed for focal segmental glomerulosclerosis in the provided graph data.,"Albuminuria, Kearns-Sayre Syndrome, Proteinuria"
+12,Tell me about the symptoms of azoospermia.,NONE,Overweight
+13,What symptoms should I look for if I have bile duct cancer?,NONE,"Colic, Jaundice, Obstructive, Pruritus, Jaundice, Abdominal Pain"
+14,What symptoms should I look for if I have membranous glomerulonephritis?,"Proteinuria, Edema, Monoclonal Gammopathy of Undetermined Significance","Proteinuria, Edema, Monoclonal Gammopathy of Undetermined Significance"
+15,What symptoms should I look for if I have vaginal cancer?,"Pain, Psychophysiologic Disorders, Urinary Incontinence, Stress, Vomiting","Pain, Psychophysiologic Disorders, Urinary Incontinence, Urinary Incontinence, Stress, Vomiting"
+16,Can you tell me what the symptoms of ureter cancer are?,"Pain, Flank Pain, Colic, Urinoma","Pain, Flank Pain, Colic, Urinoma"
+17,What symptoms should I look for if I have penile cancer?,"Pain, Edema, Dysuria, Intractable, Cafe-au-Lait Spots","Pain, Edema, Dysuria, Pain, Intractable, Cafe-au-Lait Spots"
+18,Tell me about the symptoms of appendix cancer.,"Abdomen, Acute, Vomiting, Abdominal Pain","Abdomen, Acute, Vomiting, Abdominal Pain"
+19,Can you tell me what the symptoms of ileum cancer are?,"Diarrhea, Gastroparesis, Abdominal Pain, Flushing, Abdomen","Diarrhea, Gastroparesis, Abdominal Pain, Flushing, Abdomen, Acute"
+20,What are the biological processes of gene RBMY1C?,NONE,"RNA splicing, RNA processing, mRNA processing, mRNA metabolic process"
+21,What biological activities are associated with gene P4HA3?,NONE,"protein hydroxylation, oxidation-reduction process, peptidyl-proline modification, peptidyl-proline hydroxylation"
+22,Can you describe the biological operations of the L3MBTL4 gene?,NONE,"chromosome organization, chromatin organization, chromatin modification"
+23,What biological activities are associated with gene LRRFIP2?,NONE,Wnt signaling pathway
+24,What biological activities are associated with gene BSPH1?,NONE,"multi-organism reproductive process, sexual reproduction, single fertilization, fertilization"
+25,What are the biological functions ascribed to the LARP7 gene?,No biological functions are assigned to the LARP7 gene in the provided graph.,RNA processing
+26,What are the biological functions ascribed to the HEBP1 gene?,No specific biological functions are recorded for the HEBP1 gene based on the available data.,"circadian rhythm, rhythmic process"
+27,What are the biological processes of gene BTG4?,The biological processes of gene BTG4 are not explicitly listed in the provided graph data.,"cell cycle arrest, negative regulation of mitotic cell cycle, negative regulation of cell proliferation, regulation of mitotic cell cycle, negative regulation of cell cycle"
+28,Could you tell me about the biological processes linked with the P2RY10 gene?,The information about the biological processes linked to the P2RY10 gene could not be retrieved due to errors in the system. Please verify the node ID or ensure proper indexing in the graph for accurate results.,"G-protein coupled purinergic nucleotide receptor signaling pathway, G-protein coupled purinergic receptor signaling pathway, purinergic nucleotide receptor signaling pathway, purinergic receptor signaling pathway"
+29,What are the biological processes of gene PSMG4?,NONE,"cellular macromolecular complex assembly, proteasome assembly, cellular protein complex assembly"
+30,Can you tell me the molecular functions of the gene TSN?,The molecular functions of the gene TSN cannot be determined with the available tools and data.,"nuclease activity, endonuclease activity, mRNA binding, hydrolase activity, acting on ester bonds"
+31,Can you tell me the molecular functions of the gene MDH1B?,NONE,"malate dehydrogenase activity, oxidoreductase activity, acting on the CH-OH group of donors, NAD or NADP as acceptor, oxidoreductase activity, acting on CH-OH group of donors, oxidoreductase activity"
+32,What are the molecular functions of gene SSX7?,NONE,"transcription corepressor activity, transcription factor activity, protein binding, transcription cofactor activity, transcription factor activity, transcription factor binding"
+33,What are the specific molecular functions carried out by the gene PRELP?,Glycosyltransferase activity,"glycosaminoglycan binding, extracellular matrix structural constituent, structural molecule activity, heparin binding, sulfur compound binding"
+34,What are the specific molecular functions carried out by the gene CLEC3A?,"The specific molecular functions carried out by the gene CLEC3A are not directly available in the provided graph data. However, based on its role in immune responses and signaling pathways, it is likely involved in molecular functions such as ""cell adhesion,"" ""signaling,"" and ""immune response regulation."" For precise details, the graph data would need to be consulted.",carbohydrate binding
+35,Can you tell me the molecular functions of the gene OR2B6?,Unable to retrieve molecular functions directly. Node ID: DOID:26212. Further graph exploration is needed for detailed information.,"G-protein coupled receptor activity, olfactory receptor activity"
+36,Can you tell me the molecular functions of the gene PLK5?,The molecular functions of the gene PLK5 are not available in the provided graph data.,"kinase activity, transferase activity, transferring phosphorus-containing groups, phosphotransferase activity, alcohol group as acceptor, protein kinase activity"
+37,What are the molecular functions of gene RPS20?,NONE,"structural molecule activity, structural constituent of ribosome"
+38,What kinds of molecular functions does the gene IFITM1 have?,The molecular function of the gene IFITM1 is not specified in the provided graph data.,receptor signaling protein activity
+39,What are the molecular functions of gene BCL2L2?,"Oxidative phosphorylation, protein binding","protein heterodimerization activity, BH domain binding, protein homodimerization activity, protein domain specific binding"
+40,Which part of the anatomy can the gene ENTPD2 downregulate?,Unable to determine the specific anatomy due to errors in node retrieval and neighbor checks. Please verify the gene name or node ID in the graph.,"adrenal gland, urethra"
+41,What anatomy can be downregulated by gene CDAN1?,No anatomy can be downregulated by the gene CDAN1 based on the provided graph data.,"spinal cord, brain"
+42,Which part of the anatomy can the gene TMEM265 downregulate?,NONE,"brain, blood, trigeminal ganglion"
+43,Which part of the anatomy can the gene CREBRF downregulate?,CREBRF does not downregulate any anatomy in the provided dataset.,"bone marrow, adrenal gland, brain, liver, mammalian vulva"
+44,What anatomical structures can be downregulated by the gene C21orf59?,The anatomical structures downregulated by the gene C21orf59 are not explicitly listed in the provided data due to persistent errors in retrieving neighbor information.,heart
+45,Which anatomical components can be subject to downregulation by the gene CCDC61?,NONE,"heart, brain"
+46,Which anatomical components can be subject to downregulation by the gene UFSP1?,NONE,"testis, lung, brain, lymph node, heart"
+47,What anatomical structures can be downregulated by the gene ZAP70?,"UBERON:0001893, UBERON:0001135, UBERON:0001013, UBERON:0000948","telencephalon, smooth muscle tissue, adipose tissue, heart"
+48,What anatomy can be downregulated by gene TPD52L2?,The anatomy nodes downregulated by gene TPD52L2 are the neighbors of DOID:7165 via the Gene-downregulates-Anatomy edge. Specific anatomy names are not provided here due to tool limitations.,"liver, adrenal gland"
+49,What anatomical structures can be downregulated by the gene RTCA?,"The gene RTCA is not present in the graph or there is an error in the node ID or edge type. Therefore, the anatomical structures downregulated by RTCA cannot be determined.","blood, nipple, testis, endometrium, adrenal gland"
+50,What anatomy can be expressed by gene C22orf15?,No anatomy is expressed by gene C22orf15.,"lung, testis"
+51,The gene HLA-DOB can express which anatomy?,NONE,"adrenal gland, lymph node"
+52,What are the anatomical expressions of the gene SPATA45?,NONE,testis
+53,What are the anatomical expressions of the gene FAM86B2?,NONE,brain
+54,Which anatomical structures can the gene SOWAHB express?,No anatomical structures are known to be expressed by the gene SOWAHB.,"brain, liver, thyroid gland, prostate gland"
+55,What anatomy can be expressed by gene KRT39?,NONE,"head, skin of body"
+56,Which anatomical structures can the gene CYP3A43 express?,No anatomical structures are associated with the gene CYP3A43 in the provided graph.,"testis, endocrine gland, liver"
+57,What are the anatomical expressions of the gene LBX2?,"The anatomical expressions of the gene LBX2 are the neighbors of DOID:85474 via the ""Anatomy-expresses-Gene"" edge. The specific anatomical nodes are listed as follows: [List of anatomical nodes].",liver
+58,In which anatomic structures is the gene SYNC capable to be expressed?,No anatomic structures are associated with the gene SYNC in this graph.,"female reproductive system, brain, head, nervous system, central nervous system"
+59,The gene C2orf66 can express which anatomy?,The anatomy expressed by C2orf66 is not found in the provided graph data.,"endocrine gland, gonad, female reproductive system, testis"
+60,What anatomical parts can the GABRD gene upregulate?,NONE,"brain, midbrain, telencephalon, cerebellum"
+61,Which anatomical structures can the TEX30 gene enhance?,NONE,"testis, cortex of kidney, myometrium, liver"
+62,What anatomy can be upregulated by gene KCTD16?,NONE,brain
+63,Which areas of anatomy can be amplified by the gene CEMP1?,The node ID DOID:752014 is invalid or the tool is not functioning properly. Unable to determine the anatomical areas amplified by CEMP1.,"cerebellum, liver"
+64,What anatomy can be upregulated by gene CDKN2A?,No anatomy is directly upregulated by CDKN2A based on the available data.,"blood, smooth muscle tissue, pituitary gland, adrenal cortex"
+65,What anatomical parts can the SERPINI2 gene upregulate?,NONE,"heart, brain, spinal cord"
+66,What anatomical parts can the IGLL5 gene upregulate?,NONE,"female gonad, lung, heart, lymph node, adrenal gland"
+67,What anatomical parts can the LRRC75A gene upregulate?,NONE,"blood, adrenal gland, testis, adrenal cortex, brain"
+68,What anatomical parts can the MMP3 gene upregulate?,NONE,"trachea, smooth muscle tissue"
+69,What parts of the anatomy can be increased by the IGF2BP3 gene?,NONE,"blood, testis, smooth muscle tissue"
+70,Can you tell me about a compound that can tackle both peripheral nervous system neoplasm and brain cancer?,Etoposide,Etoposide
+71,Could you identify a compound effective against both coronary artery disease and Kawasaki disease?,Acetylsalicylic acid,Acetylsalicylic acid
+72,Which compound has the ability to cure both systemic lupus erythematosus and lung cancer?,Methotrexate,Methotrexate
+73,What is the compound that can manage both hematologic cancer and leprosy?,NONE,Thalidomide
+74,What compound can treat both hypertension and nephrolithiasis?,NONE,Hydrochlorothiazide
+75,Can you tell me about a compound that can tackle both type 1 diabetes mellitus and hypertension?,NONE,Ramipril
+76,Can you tell me about a compound that can tackle both malaria and systemic scleroderma?,NONE,Pentoxifylline
+77,What compound can treat both obesity and type 2 diabetes mellitus?,Phentermine,Orlistat
+78,What is the compound that can manage both cervical cancer and ovarian cancer?,NONE,Topotecan
+79,What compound can treat both type 2 diabetes mellitus and polycystic ovary syndrome?,Metformin,Metformin
+80,What illness in midbrain can be alleviated by Nicotine?,NONE,nicotine dependence
+81,What illness in eyelash can be alleviated by Monobenzone?,Hearing Disorders,vitiligo
+82,What ailment in forelimb can the use of Dextromethorphan relieve?,NONE,amyotrophic lateral sclerosis
+83,Which sickness in pleura can Fentanyl help alleviate?,NONE,lung cancer
+84,What illness in secretion of lacrimal gland can be alleviated by Amitriptyline?,NONE,rheumatoid arthritis
+85,What ailment in central retinal artery can the use of Octreotide relieve?,NONE,type 1 diabetes mellitus
+86,Which sickness in forelimb zeugopod can Cholecalciferol help alleviate?,NONE,chronic kidney failure
+87,Which sickness in locus ceruleus can Chlordiazepoxide help alleviate?,NONE,alcohol dependence
+88,Which sickness in gall bladder can Aprepitant help alleviate?,Gallbladder Disease,colon cancer
+89,What ailment in urine can the use of Escitalopram relieve?,NONE,bipolar disorder
+90,What kind of disease in the renal pelvis can be mitigated with Hydrochlorothiazide?,The diseases in the renal pelvis that can be mitigated by Hydrochlorothiazide are hypertension and nephrolithiasis.,nephrolithiasis
+91,What disease located in cranial nerve II can Methimazole treat?,NONE,Graves' disease
+92,What illness situated in urine can be treated by Mitomycin?,NONE,urinary bladder cancer
+93,What kind of disease in the strand of hair can be mitigated with Mycophenolate mofetil?,"systemic scleroderma, psoriasis, systemic lupus erythematosus",psoriasis
+94,What kind of disease in the vagus nerve can be mitigated with Reserpine?,NONE,hypertension
+95,What kind of disease in the epithelium can be mitigated with Ursodeoxycholic acid?,primary biliary cirrhosis,primary biliary cirrhosis
+96,What illness situated in brain can be treated by Verapamil?,NONE,migraine
+97,Which disease in the bone marrow can Nilutamide help to cure?,prostate cancer,prostate cancer
+98,Which disease in the eyelash can Methoxsalen help to cure?,"psoriasis, hematologic cancer, vitiligo",vitiligo
+99,What illness situated in ear can be treated by Fluocinolone Acetonide?,Tinea corporis and Tinea pedis,atopic dermatitis
+100,What illness located in central retinal artery is downregulated by KCNH1?,NONE,type 1 diabetes mellitus
+101,What is the disease found in forelimb that is downregulated by NEIL2?,NONE,amyotrophic lateral sclerosis
+102,What is the disease found in secretion of lacrimal gland that is downregulated by ABL1?,NONE,rheumatoid arthritis
+103,What is the disease found in strand of hair that is downregulated by ERC2?,NONE,alopecia areata
+104,What illness located in cranial nerve II is downregulated by FAM19A4?,NONE,glaucoma
+105,What disease is downregulated by MYC and located in fallopian tube?,NONE,breast cancer
+106,What disease is downregulated by INPP5A and located in blood?,NONE,acquired immunodeficiency syndrome
+107,What is the disease found in vagus nerve that is downregulated by TADA2B?,NONE,hypertension
+108,"In terms of the disease that MLST8 downregulates and is found in telencephalon, what is it?",NONE,schizophrenia
+109,What illness located in masseter muscle is downregulated by PLEKHM3?,NONE,periodontitis
+110,What is the disease that is tied to PRND and situated in the lymphoid tissue?,NONE,Creutzfeldt-Jakob disease
+111,What disease is associated by ADAMTS9 and located in hindlimb?,NONE,type 2 diabetes mellitus
+112,What disease is associated by CYP4F22 and located in arachnoid mater?,NONE,spinal cancer
+113,What is the disease related to PDE4A and located in the exocrine gland?,NONE,asthma
+114,Can you tell me the disease connected to ZDHHC2 and based in the biliary system?,NONE,liver cancer
+115,Which disease is linked with the ACE2 and found in the cranial nerve II?,NONE,glaucoma
+116,What is the disease related to ULBP3 and located in the strand of hair?,NONE,alopecia areata
+117,Which disease is linked with the TCTE1 and found in the brown adipose tissue?,NONE,adrenal gland cancer
+118,Which disease is linked with the NOG and found in the strand of hair?,NONE,cleft lip
+119,Can you tell me the disease connected to SCT and based in the lymph node?,NONE,duodenum cancer
+120,Which disease is increased by ALAS1 and present in muscle of abdomen?,NONE,Crohn's disease
+121,Which sickness is amplified by IGFBP3 and situated in urine?,NONE,bipolar disorder
+122,Which disease is increased by MAX and present in ankle joint?,NONE,ankylosing spondylitis
+123,What disease is upregulated by OPRK1 and located in scrotum?,NONE,uterine fibroid
+124,What illness is upregulated by SLC28A3 and found in respiratory system?,NONE,idiopathic pulmonary fibrosis
+125,Which sickness is amplified by ZBED8 and situated in vagus nerve?,NONE,hypertension
+126,What illness is upregulated by NNMT and found in sacro-iliac joint?,NONE,ulcerative colitis
+127,What malady is enhanced by VAV2 and based in epithelium?,NONE,Barrett's esophagus
+128,Which sickness is amplified by C2orf78 and situated in adrenal cortex?,NONE,polycystic ovary syndrome
+129,What malady is enhanced by ADPGK and based in pes?,NONE,melanoma
+130,Does a correlation exist between EIF2AK1 and D021501? Kindly respond with True or False,False,False
+131,Is there a correlation between PPP1CB and D003371? Please answer True or False,NONE,True
+132,Is there any linked relation between LRAT and D003085? Please say True or False,NONE,True
+133,Is there any linked relation between TRIOBP and D006311? Please say True or False,False,True
+134,Does a correlation exist between SDHAF4 and D007383? Kindly respond with True or False,False,False
+135,Is there any linked relation between MLF2 and D004433? Please say True or False,NONE,True
+136,Is there a correlation between IARS and D005316? Please answer True or False,NONE,False
+137,Is there a correlation between NRP1 and D006429? Please answer True or False,NONE,False
+138,Does a correlation exist between PLA2G4C and D053158? Kindly respond with True or False,NONE,False
+139,Is there any linked relation between BAAT and D019588? Please say True or False,False,True
+140,Can you count how many compounds are there like Crotamiton?,NONE,2
+141,What is the number of compounds similar to Prazepam?,32,32
+142,Can you tell me the count of compounds that are similar to Neomycin?,7,7
+143,Can you tell me the count of compounds that are similar to Isradipine?,9,9
+144,Can you count how many compounds are there like Nitroglycerin?,1,1
+145,Can you count how many compounds are there like Fenethylline?,6,6
+146,Can you tell me the count of compounds that are similar to Pipazethate?,19,18
+147,Can you tell me the count of compounds that are similar to Acepromazine?,40,34
+148,What is the number of compounds similar to Sulfacetamide?,29,27
+149,What is the number of compounds similar to Orlistat?,2,2
+150,How many diseases are similar to amyotrophic lateral sclerosis?,4,4
+151,How many diseases are similar to pharynx cancer?,NONE,9
+152,How many resemble disease do gout have?,NONE,4
+153,How many diseases are similar to osteoarthritis?,6,6
+154,What is the number of diseases similar to esophageal cancer?,NONE,12
+155,How many resemble disease do migraine have?,NONE,2
+156,What is the count of diseases that are similar to rectum cancer?,15,15
+157,How many resemble disease do thyroid cancer have?,NONE,13
+158,How many diseases are similar to Gilles de la Tourette syndrome?,7,7
+159,What is the number of diseases similar to liver cancer?,20,19
+160,Can you tell me the number of compounds available for the treatment of allergic rhinitis?,15,15
+161,How many different compounds are there for the treatment of Crohn's disease?,NONE,6
+162,How many compounds can be used to treat primary biliary cirrhosis?,3,3
+163,How many compounds can be used to treat thymus cancer?,0,1
+164,How many different compounds are there for the treatment of atopic dermatitis?,NONE,16
+165,How many compounds can be used to treat skin cancer?,NONE,9
+166,What is the count of compounds that can be utilized for treating osteoporosis?,NONE,15
+167,Can you tell me the number of compounds available for the treatment of azoospermia?,0,1
+168,What is the count of compounds that can be utilized for treating prostate cancer?,20,21
+169,How many compounds can be used to treat coronary artery disease?,0,28
+170,Which drug classification contains the most substances that can relieve a disease presenting Cerebrospinal Fluid Otorrhea?,NONE,Corticosteroid Hormone Receptor Agonists
+171,What pharmacologic class has the majority of compounds that can alleviate the disease with Angina Pectoris?,NONE,Increased Diuresis at Loop of Henle
+172,What pharmacologic class has the majority of compounds that can alleviate the disease with Oral Manifestations?,NONE,Nonsteroidal Anti-inflammatory Compounds
+173,"In terms of pharmacologic classes, which one possesses the most compounds capable of mitigating a disease with Vocal Cord Paralysis?",NONE,Nonsteroidal Anti-inflammatory Compounds
+174,Which drug classification contains the most substances that can relieve a disease presenting Polyuria?,NONE,Decreased Central Nervous System Disorganized Electrical Activity
+175,"In terms of pharmacologic classes, which one possesses the most compounds capable of mitigating a disease with Pain Threshold?",NONE,Nonsteroidal Anti-inflammatory Compounds
+176,Which pharmacologic class includes the most compounds that can palliate the disease with Encopresis?,NONE,Central Nervous System Stimulation
+177,What is the drug class that contains the most compounds that can ease the disease with Weight Loss?,NONE,Progesterone Congeners
+178,What is the drug class that contains the most compounds that can ease the disease with Taste Disorders?,NONE,Nonsteroidal Anti-inflammatory Compounds
+179,Which drug classification contains the most substances that can relieve a disease presenting Hypesthesia?,NONE,Nonsteroidal Anti-inflammatory Compounds
+180,Which pharmacologic class includes the most compounds that can treat the disease with Neurogenic Inflammation?,NONE,Corticosteroid Hormone Receptor Agonists
+181,"Can you tell me the pharmacologic class that possesses the most number of medicinal compounds addressing the disease with Amnesia, Retrograde?",NONE,Decreased Central Nervous System Disorganized Electrical Activity
+182,What is the pharmacologic class that has the highest number of compounds for treating the disease characterized by Ophthalmoplegia?,NONE,Alkylating Activity
+183,What is the pharmacologic class that has the highest number of compounds for treating the disease characterized by Psychomotor Disorders?,NONE,Decreased Central Nervous System Disorganized Electrical Activity
+184,"Which pharmacologic class includes the most compounds that can treat the disease with Ophthalmoplegia, Chronic Progressive External?",NONE,Decreased Central Nervous System Disorganized Electrical Activity
+185,What is the pharmacologic group consisting of the greatest number of therapeutic substances for the disease associated with Sleep Deprivation?,NONE,Decreased Central Nervous System Disorganized Electrical Activity
+186,What is the pharmacologic class that has the highest number of compounds for treating the disease characterized by Myotonia?,NONE,Corticosteroid Hormone Receptor Agonists
+187,What is the pharmacologic group consisting of the greatest number of therapeutic substances for the disease associated with Perceptual Disorders?,NONE,Corticosteroid Hormone Receptor Agonists
+188,What is the pharmacologic group consisting of the greatest number of therapeutic substances for the disease associated with Hemianopsia?,NONE,Alkylating Activity
+189,Which pharmacologic class includes the most compounds that can treat the disease with Sciatica?,NONE,Corticosteroid Hormone Receptor Agonists
+190,"In diseases with Polyuria, which cellular component is most often involved in the upregulation of genes?",NONE,cell surface
+191,"In diseases with Shoulder Pain, which cellular component is most often involved in the upregulation of genes?",NONE,chromosome
+192,"In diseases with Dystonia, which cellular component is most often involved in the upregulation of genes?",NONE,chromosome
+193,What cellular component involves the majority of genes that show increased activity in diseases with Fatigue?,NONE,membrane protein complex
+194,"Which cellular component is associated with the majority of genes that are more active in diseases showcasing Gait Disorders, Neurologic?",NONE,chromosome
+195,What cellular component involves the majority of genes that show increased activity in diseases with Livedo Reticularis?,NONE,cell surface
+196,Which cellular component is participated by most genes that are upregulated in disease with Hemiplegia?,NONE,cell surface
+197,What cellular component involves the majority of genes that show increased activity in diseases with Dysarthria?,NONE,plasma membrane region
+198,"Most genes that are upregulated in disease with Polydipsia, Psychogenic interact with which cellular component?",NONE,chromosome
+199,Most genes that are upregulated in disease with Thinness interact with which cellular component?,NONE,cell surface

@@ -22,9 +22,9 @@ dataset = json.load(open(data_path))
 
 llm = LLM(
     "qwen/Qwen3-1.7B",
-    gpu_memory_utilization=0.2,
+    gpu_memory_utilization=0.3,
     max_num_seqs=16,
-    max_model_len=4096,
+    max_model_len=16384,
 )
 
 # ----------------------------
@@ -160,43 +160,51 @@ formatted_prompt = system_prompt.format(
 pattern = re.compile(r"<(think|tool_call|tool_response|final_answer)>(.*?)</\1>", re.S)
 
 
-def run_query(query: str, max_steps: int = 20, print_out: bool = False):
-    # Initialize the conversation history
+def run_query(
+    query: str,
+    max_think_steps: int = 25,
+    hard_cap: int = 100,  # absolute safety cap
+    print_out: bool = False,
+):
     history = [
         {"role": "system", "content": formatted_prompt},
         {"role": "user", "content": f"Question: {query}"},
     ]
 
+    step_total = 0  # all model calls
+    step_think = 0  # <think> turns that count
+
     if not print_out:
-        print("steps - ", end="", flush=True)
+        print("think-steps - ", end="", flush=True)
 
-    for step in range(max_steps):
-        if not print_out:
-            print(f"{step} ", end="", flush=True)
-
+    while step_think < max_think_steps and step_total < hard_cap:
         # ---------------------------------------------------------------
-        # Use vLLM's chat interface with thinking enabled
+        # 1) Call the model
         # ---------------------------------------------------------------
         sampling_params = SamplingParams(max_tokens=256, temperature=0.6)
         chat_out = llm.chat(
-            [history],  # Pass the history as a list of messages
+            [history],
             sampling_params,
-            chat_template_kwargs={"enable_thinking": True},  # Enable thinking mode
+            chat_template_kwargs={"enable_thinking": True},
         )
+        step_total += 1
 
-        # Extract the generated text from the first output
-        response = chat_out[0].outputs[0].text.strip()  # Correct way to access text
-        # ---------------------------------------------------------------
-
-        # Extract blocks (e.g., <think>, <tool_call>, <tool_response>, <final_answer>)
+        response = chat_out[0].outputs[0].text.strip()
         blocks = pattern.findall(response)
 
+        # ---------------------------------------------------------------
+        # 2) Parse the response
+        # ---------------------------------------------------------------
         for tag, body in blocks:
             body = body.strip()
 
             if tag == "think":
-                if print_out:
+                step_think += 1
+                if not print_out:
+                    print(f"{step_think} ", end="", flush=True)
+                else:
                     print(f"<think>{body}</think>")
+
                 history.append(
                     {"role": "assistant", "content": f"<think>{body}</think>"}
                 )
@@ -205,7 +213,7 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
                 if print_out:
                     print(f"<tool_call>{body}</tool_call>")
 
-                # Parse the tool call and execute it
+                # Execute tool(s) exactly as before ----------------------
                 calls = re.findall(r"(\w+\[.*?\])", body)
                 full_tool_call = f"<tool_call>{body}</tool_call>"
                 tool_outputs = []
@@ -235,7 +243,6 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
                 if print_out:
                     print(f"<tool_response>{joined_response}</tool_response>")
 
-                # Add the tool call and response to the history
                 history.append({"role": "assistant", "content": full_tool_call})
                 history.append(
                     {
@@ -243,7 +250,8 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
                         "content": f"<tool_response>{joined_response}</tool_response>",
                     }
                 )
-                break  # Return to the model for the next step
+                # DO NOT change step_think here
+                break  # go back to model
 
             elif tag == "final_answer":
                 if print_out:
@@ -251,7 +259,7 @@ def run_query(query: str, max_steps: int = 20, print_out: bool = False):
                 return body
 
     if print_out:
-        print("Reached step limit without final answer.")
+        print("\nReached limit without final_answer.")
     return None
 
 
@@ -267,11 +275,11 @@ def save_to_csv(print_out: bool = False):
         if not file_exists:
             writer.writeheader()
 
-        for item in dataset:
+        for item in dataset[192:200]:
             qid = item["qid"]
             question = item["question"]
             real = item["answer"]
-            pred = run_query(question, 50, print_out)
+            pred = run_query(question, 25, 55, print_out)
 
             print("")
             print(f"pred: {pred}")
@@ -294,6 +302,6 @@ if __name__ == "__main__":
     retriever = Retriever(args, graph)
 
     retriever.reset()
-    save_to_csv(True)
+    save_to_csv(False)
 
     llm.stop()
