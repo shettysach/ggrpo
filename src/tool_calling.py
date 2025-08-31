@@ -1,4 +1,3 @@
-from vllm import LLM, SamplingParams
 from retriever import Retriever, NODE_TEXT_KEYS
 from graph_funcs import graph_funcs
 import json
@@ -116,7 +115,7 @@ Question: What is the inchikey of Caffeine?
 
 example_block = "\n\n".join(examples)
 
-system_prompt = """You are an assistant who uses tools to compute answers step-by-step. 
+system_prompt = """You are an assistant who uses tools to compute answers step-by-step.
 
 Graph description:
 {graph_description}
