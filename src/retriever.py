@@ -63,8 +63,8 @@ class Retriever:
         self.model_name = args.embedder_name
         self.model = sentence_transformers.SentenceTransformer(
             args.embedder_name,
-            # device="cpu",  # WARN: Using CPU explicitly
-            device="cuda",  # WARN: Using CPU explicitly
+            device="cpu",  # WARN: Using CPU explicitly
+            # device="cuda",
         )
         self.graph = graph
         self.cache = args.embed_cache
